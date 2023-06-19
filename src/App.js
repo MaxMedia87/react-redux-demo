@@ -1,7 +1,7 @@
-import {useState} from 'react'
-import {useDispatch} from "react-redux";
+import {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from "react-redux";
 
-import {addTodo} from "./store/todoSlice";
+import {addTodo, fetchTodos} from "./store/todoSlice";
 
 import {TodoList} from "./components/TodoList";
 import {InputField} from "./components/InputField";
@@ -10,6 +10,8 @@ import './App.css';
 
 function App() {
   const [text, setText] = useState('');
+  // state.todos общий state обращение к configureStore
+  const {status, error} = useSelector(state => state.todos)
   const dispatch = useDispatch();
 
   const addTask = () => {
@@ -17,10 +19,18 @@ function App() {
     setText('')
   };
 
+  useEffect(() => {
+    dispatch(fetchTodos())
+  },[dispatch])
+
   return (
     <div className="App">
-        <InputField text={text} handleInput={setText} handleSubmit={addTask}/>
-        <TodoList />
+      <InputField text={text} handleInput={setText} handleSubmit={addTask}/>
+
+      {status === 'loading' && <h2>Loading...</h2>}
+      {error && <h2>Произошла ошибка {error}</h2>}
+
+      <TodoList />
     </div>
   );
 }
