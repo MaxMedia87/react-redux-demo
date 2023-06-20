@@ -69,12 +69,12 @@ export const toggleStatusTodo = createAsyncThunk(
 
 export const addNewTodo = createAsyncThunk(
     'todos/addNewTodo',
-    async function(text, {rejectWithValue, dispatch}) {
+    async function({text, user}, {rejectWithValue, dispatch}) {
         try {
             const response = await fetch(`https://jsonplaceholder.typicode.com/todos`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    userId: 1,
+                    userId: Number(user),
                     completed: false,
                     title: text
                 }),

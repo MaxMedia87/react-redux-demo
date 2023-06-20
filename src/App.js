@@ -5,17 +5,22 @@ import {addNewTodo, fetchTodos} from "./store/todoSlice";
 
 import {TodoList} from "./components/TodoList";
 import {InputField} from "./components/InputField";
+import {Select} from "./components/Select";
+
+import {users} from "./data/users";
 
 import './App.css';
 
 function App() {
   const [text, setText] = useState('');
+  const [user, setUser] = useState('');
+
   // state.todos общий state обращение к configureStore
   const {status, error} = useSelector(state => state.todos)
   const dispatch = useDispatch();
 
   const addTask = () => {
-    dispatch(addNewTodo(text))
+    dispatch(addNewTodo({text, user}))
     setText('')
   };
 
@@ -25,6 +30,7 @@ function App() {
 
   return (
     <div className="App">
+      <Select selectName={'users'} selectId={'users'} options={users} handleSelect={setUser} />
       <InputField text={text} handleInput={setText} handleSubmit={addTask}/>
 
       {status === 'loading' && <h2>Loading...</h2>}
