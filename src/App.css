@@ -1,28 +1,36 @@
-.App {
+
+.header .navigation {
+  display: flex;
+  list-style: none;
+  gap: 15px;
 }
 
-label {
+.App {
+  margin: 20px;
+}
+
+.App label {
   margin: 30px;
   display: block;
 }
 
-ul {
+.App ul {
   list-style: none;
   float: left;
   display: block;
 }
 
-li {
+.App li {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.delete {
+.App .delete {
   color: red;
   cursor: pointer;
 }
 
-input:checked + span {
+.App input:checked + span {
   text-decoration: line-through;
 }
